@@ -6,9 +6,10 @@
 </p>
 </figure>
 <div class="media-content">
+   <%= render 'tweets/form' %>
 </div>
 </article>
-</div>
+
 <% @tweets.each do |t| %>
 <div class="box">
  <article class="media">
@@ -17,12 +18,27 @@
      <img src="https://bulma.io/images/placeholders/64x64.png">
      </figure>
    </div>
-   <div class="media-content">
+   < class="media-content">
       <div class="content">
       <strong> james tucker </strong> </br>
-      <small> @webcrunch </small> </br>
-      <p><% t.tweet %></p>
+      <small> @web_india </small> </br>
+      <p><%= t.tweet %></p>
+      </div>
+      <nav class="level1">
+      <div class="level-left is-mobile">
+      <%= link_to @tweet, class: "level-item" do %>
+      <span class="icon"><i class="fa fa-link" aria-hidden="true"></i> </span>
+      <%end%>
+      <%= link_to edit_tweet_path(@tweets), class: "level-item" do %>
+      <span class="icon"> <i class="fa fa-pencil" aria-hidden="true"></i></span>
+      <% end %>
+      <%= link_to @tweet, method: :delete, data: {confirm: "are you sure ?"} do %>
+      <span class="icon" ><i class="fa fa-trash-o" aria-hidden='true'></i></span>
+      <% end %>
+      </div>
+      </nav>
+      </div>
  </article>
 
-</div>
 <% end %>
+</div>
