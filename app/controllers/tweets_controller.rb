@@ -15,7 +15,7 @@ class TweetsController < ApplicationController
 
   # GET /tweets/new
   def new
-    @tweet = Tweet.new
+    @tweet = current_user.tweets.build
   end
 
   # GET /tweets/1/edit
@@ -24,7 +24,7 @@ class TweetsController < ApplicationController
 
   # POST /tweets or /tweets.json
   def create
-    @tweet = Tweet.new(tweet_params)
+    @tweet = current_user.tweets.build(tweet_params)
 
     respond_to do |format|
       if @tweet.save
@@ -51,18 +51,21 @@ class TweetsController < ApplicationController
   end
 
   # DELETE /tweets/1 or /tweets/1.json
-  def destroy
+  def destroy  
+    @tweet = Tweet.find(params[:id]) if params[:id]
     @tweet.destroy
     respond_to do |format|
       format.html { redirect_to tweets_url, notice: "Tweet was successfully destroyed." }
       format.json { head :no_content }
     end
+    
+   
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet
-      @tweet = Tweet.find(params[:id])
+      @tweet = Tweet.find(params[:id]) if params[:id]
     end
 
     # Only allow a list of trusted parameters through.

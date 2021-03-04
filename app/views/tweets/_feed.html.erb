@@ -1,5 +1,6 @@
-<div class="column is-half">
-<article class="media box">
+<div class="column ">
+<% if user_signed_in? %>
+<article class="media box ">
 <figure class="media-left">
 <p class="image is-64x64">
  <img src="https://bulma.io/images/placeholders/64x64.png">
@@ -8,6 +9,7 @@
 <div class="media-content">
    <%= render 'tweets/form' %>
 </div>
+<% end %>
 </article>
 
 <% @tweets.each do |t| %>
@@ -18,27 +20,31 @@
      <img src="https://bulma.io/images/placeholders/64x64.png">
      </figure>
    </div>
-   < class="media-content">
+   <div class="media-content">
       <div class="content">
       <strong> james tucker </strong> </br>
       <small> @web_india </small> </br>
       <p><%= t.tweet %></p>
       </div>
       <nav class="level1">
+      <% if user_signed_in? %>
       <div class="level-left is-mobile">
       <%= link_to @tweet, class: "level-item" do %>
       <span class="icon"><i class="fa fa-link" aria-hidden="true"></i> </span>
       <%end%>
-      <%= link_to edit_tweet_path(@tweets), class: "level-item" do %>
+      <%= link_to edit_tweet_path(@tweets.ids), class: "level-item" do %>
       <span class="icon"> <i class="fa fa-pencil" aria-hidden="true"></i></span>
       <% end %>
-      <%= link_to @tweet, method: :delete, data: {confirm: "are you sure ?"} do %>
+      <%= link_to  tweet_path(@tweets.ids), method: :delete, data: {confirm: "are you sure ?"} do %>
       <span class="icon" ><i class="fa fa-trash-o" aria-hidden='true'></i></span>
       <% end %>
       </div>
+      <% end %>
       </nav>
       </div>
+      </div>
  </article>
-
 <% end %>
 </div>
+
+    
